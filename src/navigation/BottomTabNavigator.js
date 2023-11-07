@@ -4,6 +4,7 @@ import StackNavigator from '../navigation/StackNavigator'
 import { StyleSheet } from "react-native";
 import { colors } from "../constants/colors";
 import Feather from '@expo/vector-icons/Feather'
+import ProfileNavigator from "./ProfileNavigator";
 
 const BottomTab = createBottomTabNavigator()
 
@@ -35,6 +36,17 @@ function BottomTabNavigator() {
                 <Feather
                 size={30}
                 name= 'book-open'
+                color= {focused ? colors.secondary : colors.tertiary} />
+            )
+          }}/>
+          <BottomTab.Screen 
+          name='ProfileNav' 
+          component={ProfileNavigator}
+          options={{
+            tabBarIcon: ({focused}) => (
+                <Feather
+                size={30}
+                name= 'user'
                 color= {focused ? colors.secondary : colors.tertiary} />
             )
           }}/>

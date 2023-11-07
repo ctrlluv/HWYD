@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-   value:(''),
+   value:[],
 }
 
 export const diarySlice = createSlice({
@@ -10,10 +10,11 @@ export const diarySlice = createSlice({
     reducers: {
         addMemory: (state, action) => {
             state.value = action.payload
-        }
+        },
+        removeMemory: (state, action) => {}
     }
 })
 
-export const {addMemory} = diarySlice.actions
+export const {addMemory, removeMemory} = diarySlice.actions
 
 export default diarySlice.reducer

@@ -12,8 +12,11 @@ const Diary = () => {
     const image ={uri: 'https://wallpapers.com/images/hd/dark-blue-gradient-e3nnoubumcokurcc.jpg'}
     
     const [textValue, setTextValue] = useState('')
+    
 
-    const onHandleChangeText = (text) => setTextValue(text)
+    const onHandleChangeText = item => setTextValue(item)
+
+   
     
   return (
     <View style={styles.container}>
@@ -29,6 +32,9 @@ const Diary = () => {
             textAlign= 'left'
             textAlignVertical='top'
             value={textValue}
+            multiline
+            numberOfLines={10}
+            maxLength={400}
             />
       </View>
       <Pressable 
