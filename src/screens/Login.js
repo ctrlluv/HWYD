@@ -4,6 +4,7 @@ import { colors } from '../constants/colors'
 import { useLoginMutation } from '../services/authApi'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../features/authSlice'
+import { insertSession } from '../db'
 
 const image ={uri: 'https://wallpapers.com/images/hd/dark-blue-gradient-e3nnoubumcokurcc.jpg'}
 
@@ -14,14 +15,18 @@ const Login = ({navigation}) => {
   const dispatch = useDispatch()
 
   const onSubmit = () => {
-    console.log(email, password)
     triggerLogin({
         email,
         password,
     })
-    console.log(result)
     if(result.isSuccess) {
-        dispatch(setUser(result))
+        dispatch(setUser(result.data))
+        insertSession({
+          localId: result.data.localId,
+          email: result.data.email,
+          token: result.data.idToken,
+        }).then(result => console.log(result)).catch(error => console.log(error.message))
+
     }
   }
 

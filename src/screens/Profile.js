@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { colors } from '../constants/colors'
 import * as ImagePicker from 'expo-image-picker'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCameraImage } from '../features/authSlice'
+import { clearUser, setCameraImage } from '../features/authSlice'
 import { usePostProfileImageMutation } from '../services/authApi'
-
+import Feather from '@expo/vector-icons/Feather'
+import { deleteSession } from '../db'
 
 const Profile = () => {
     const image ={uri: 'https://wallpapers.com/images/hd/dark-blue-gradient-e3nnoubumcokurcc.jpg'}
@@ -44,6 +45,11 @@ const Profile = () => {
        triggerSaveProfileImage({image, localId})
     }
 
+    const logout = () => {
+      dispatch(clearUser())
+      deleteSession()
+    }
+
   return (
     <View style={styles.container}>
       <ImageBackground 
@@ -69,6 +75,14 @@ const Profile = () => {
         <Pressable style={styles.cameraButton} onPress={confirmImage}>
             <Text style={styles.textButton}>Confirm</Text>
         </Pressable>
+        <View style={styles.logoutButton}>
+          <Feather 
+          name='log-out' 
+          size={30}
+          color={colors.quaternary}
+          onPress={logout}
+          />
+        </View>
       </ImageBackground>
     </View>
   )
@@ -105,5 +119,11 @@ const styles = StyleSheet.create({
   textButton: {
     fontFamily: 'PoppinsExtraLightItalic',
     fontSize: 20,
+  },
+  logoutButton: {
+    borderColor: colors.quaternary,
+    borderWidth: 2,
+    marginTop: 10,
+    borderRadius: 10,
   }
 })
